@@ -1,7 +1,7 @@
 import createReduxModule from './createReduxModule';
 import User from '../models/user';
 
-interface State {
+interface IState {
   logged: boolean;
   user: User;
   loading: boolean;
@@ -12,7 +12,7 @@ interface State {
   };
 }
 
-const initialState: State = {
+const initialState: IState = {
   logged: false,
   user: {
     email: '',
@@ -22,7 +22,7 @@ const initialState: State = {
   error: { message: '' },
 };
 
-const reducer: Reducer<State> = {
+const reducer: IReducer<IState> = {
   login: (state, action) => ({
     ...state,
     loading: true,
@@ -39,7 +39,7 @@ const reducer: Reducer<State> = {
   }),
 };
 
-const sagas: Sagas = {
+const sagas: ISagas = {
   *login ({ payload }) {
     yield console.log('login sagas:', payload);
   },
@@ -51,6 +51,6 @@ const sagas: Sagas = {
   },
 };
 
-const auth = createReduxModule<State>('auth', initialState, reducer, sagas);
+const auth = createReduxModule<IState>('auth', initialState, reducer, sagas);
 
 export default auth;

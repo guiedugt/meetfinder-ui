@@ -1,40 +1,40 @@
 import { takeLatest, all } from 'redux-saga/effects';
 
 declare global {
-  interface Action {
+  interface IAction {
     (payload: any): {
       type: string;
       payload: object;
     };
   }
 
-  interface ActionResult {
+  interface IActionResult {
     type: string;
     payload: any;
   }
 
-  interface Reducer<State> {
-    [key: string]: (state: State, action: ActionResult) => State;
+  interface IReducer<State> {
+    [key: string]: (state: State, action: IActionResult) => State;
   }
 
-  interface Sagas {
-    [key: string]: (action: ActionResult) => void;
+  interface ISagas {
+    [key: string]: (action: IActionResult) => void;
   }
 }
 
-interface ReducerHandlers<State> {
-  [key: string]: (state: State, action: ActionResult) => State;
+interface IReducerHandlers<State> {
+  [key: string]: (state: State, action: IActionResult) => State;
 }
 
-interface SagasHandlers {
-  [key: string]: (action: ActionResult) => void;
+interface ISagasHandlers {
+  [key: string]: (action: IActionResult) => void;
 }
 
 function createModule<State>(
   name: string,
   initialState: State,
-  reducerHandlers: ReducerHandlers<State>,
-  sagasHandlers: SagasHandlers,
+  reducerHandlers: IReducerHandlers<State>,
+  sagasHandlers: ISagasHandlers,
 ) {
   const types: { [key: string]: string } = Object.keys(reducerHandlers).reduce(
     (acc, cur) => ({
@@ -44,7 +44,7 @@ function createModule<State>(
     {},
   );
 
-  const actions: { [key: string]: Action } = Object.entries(types).reduce(
+  const actions: { [key: string]: IAction } = Object.entries(types).reduce(
     (acc, cur) => ({
       ...acc,
       [cur[0]]: (payload: any) => ({ payload, type: cur[1] }),
@@ -52,7 +52,7 @@ function createModule<State>(
     {},
   );
 
-  const reducer: any = (state: State = initialState, action: ActionResult) => {
+  const reducer: any = (state: State = initialState, action: IActionResult) => {
     const actionHandlers = Object.entries(reducerHandlers)
       .reduce((acc, cur) => ({ ...acc, [types[cur[0]]]: cur[1] }), {});
 
@@ -61,7 +61,7 @@ function createModule<State>(
       : state;
   };
 
-  let sagas: { [key: string]: (action: ActionResult) => void } = {};
+  let sagas: { [key: string]: (action: IActionResult) => void } = {};
   let watchers: any = [];
   let runSagas: any = null;
   if (!!sagasHandlers) {
