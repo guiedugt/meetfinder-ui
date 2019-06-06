@@ -5,7 +5,10 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-redux": "^7.0.3",
+    "react-scripts": "3.0.1",
+    "redux": "^4.0.1",
+    "redux-saga": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,6 +37,7 @@
     "@types/node": "^12.0.4",
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.9",
     "tslint": "^5.17.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-react": "^4.0.0",

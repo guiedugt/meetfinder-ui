@@ -1,0 +1,6 @@
+{
+  "prettier.singleQuote": true,
+  "typescript.format.insertSpaceAfterConstructor": true,
+  "javascript.format.insertSpaceAfterConstructor": true,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true
+}
