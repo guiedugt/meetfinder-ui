@@ -1,20 +1,16 @@
 import React from 'react';
 
-import Header from './Header';
-import { Container, Content } from './styles/Template.styles';
+import { Container, Content } from './styles/Header.styles';
 
 interface IProps {
   children?: React.ReactNode;
 }
 
-const Template: React.FC<IProps> = ({
-  children,
-}) => {
+const Template: React.FC<IProps> = (props) => {
   return (
     <Container>
-      <Header />
       <Content>
-        {children}
+        Logs
       </Content>
     </Container>
   );

@@ -5,8 +5,8 @@ import Template from '../template/Template';
 declare global {
   interface IPath {
     name: string;
-    component: new (props: any) => React.Component;
-    template?: new (props: any) => React.Component;
+    component: React.ComponentType;
+    template?: React.ComponentType;
     default?: boolean;
   }
 }

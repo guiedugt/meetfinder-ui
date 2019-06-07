@@ -17,7 +17,7 @@ const Routes: React.FC<IProps & RouteComponentProps> = ({
 }) => {
   // const defaultPrivatePath: IPath = privateRoutes.find(route => route.default);
 
-  const setRoute = path =>
+  const setRoute: (path: IPath) => React.ReactNode = path =>
     path.template
       ? <TemplateRoute
         key={path.name}

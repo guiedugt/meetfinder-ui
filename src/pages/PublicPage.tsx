@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { Page } from './styles/Page.styles';
+
 const PublicPage: React.FC = (props) => {
   return (
-    <p>PublicPage</p>
+    <Page>PublicPage</Page>
   );
 };
 

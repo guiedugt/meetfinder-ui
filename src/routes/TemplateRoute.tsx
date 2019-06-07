@@ -3,8 +3,8 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 interface IProps {
-  component: new (props: any) => React.Component;
-  template: new (props: any) => React.Component;
+  component: React.ComponentType;
+  template: React.ComponentType;
   path?: string;
   exact?: boolean;
   key?: any;
