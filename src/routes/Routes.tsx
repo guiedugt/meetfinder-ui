@@ -8,7 +8,7 @@ import LoginPage from '../pages/LoginPage';
 import TemplateRoute from './TemplateRoute';
 import { Switch, Route, Redirect, withRouter, RouteComponentProps } from 'react-router-dom';
 
-interface IProps {
+interface IProps extends RouteComponentProps{
   logged: boolean;
 }
 
@@ -16,7 +16,7 @@ interface ISetRoute {
   (path: IPath): React.ReactNode;
 }
 
-const Routes: React.FC<IProps & RouteComponentProps> = ({
+const Routes: React.FC<IProps> = ({
   logged,
 }) => {
   const defaultPath: IPath | undefined = logged

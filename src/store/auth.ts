@@ -1,9 +1,8 @@
 import createReduxModule from './createReduxModule';
-import User from '../models/user';
 
 interface IState {
   logged: boolean;
-  user: User;
+  user: IUser;
   loading: boolean;
   error: {
     message: string,
