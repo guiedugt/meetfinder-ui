@@ -1,4 +1,8 @@
 {
-  "plugins": ["react-hot-loader/babel"],
+  "plugins": [
+    "react-hot-loader/babel",
+    ["import", { "libraryName": "antd", "libraryDirectory": "lib", "style": "css"}, "ant"],
+    ["import", { "libraryName": "lodash", "libraryDirectory": "" }, "lodash"],
+  ],
   "presets": ["react-app"]
 }
