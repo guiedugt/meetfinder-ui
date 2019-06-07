@@ -1,6 +1,7 @@
-import PublicPage from '../pages/PublicPage';
 
 import Template from '../template/Template';
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
 
 declare global {
   interface IPath {
@@ -11,17 +12,20 @@ declare global {
   }
 }
 
-export const privatePaths = [
+export const privatePaths: IPath[] = [
 ];
 
-export const notLoggedPaths = [
-];
-
-export const publicPaths = [
+export const notLoggedPaths: IPath[] = [
   {
-    name: '/',
-    component: PublicPage,
-    template: Template,
+    name: '/login',
+    component: LoginPage,
     default: true,
   },
+  {
+    name: '/register',
+    component: RegisterPage,
+  },
+];
+
+export const publicPaths: IPath[] = [
 ];
