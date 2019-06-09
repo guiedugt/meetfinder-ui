@@ -1,8 +1,11 @@
 import createSagaMiddleware from 'redux-saga';
-import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
+import storage from 'redux-persist/lib/storage';
+import { combineReducers, createStore, compose, applyMiddleware, Reducer } from 'redux';
+import { persistStore, persistReducer, PersistConfig, Persistor } from 'redux-persist';
 import { all } from 'redux-saga/effects';
 
 import auth from './auth';
+import { handleToken } from './middlewares';
 
 declare global {
   interface Window {
@@ -14,6 +17,14 @@ declare global {
 const rootReducer = combineReducers({
   auth: auth.reducer,
 });
+
+const persistConfig: PersistConfig = {
+  storage,
+  key: 'root',
+  whitelist: ['auth'],
+};
+
+const persistedReducer: Reducer = persistReducer(persistConfig, rootReducer);
 
 // Sagas
 export function* rootSaga() {
@@ -31,10 +42,11 @@ const composeEnhancers =
 
 const sagaMiddleware = createSagaMiddleware();
 
-const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
+const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware, handleToken));
 
-const store = createStore(rootReducer, initialState, enhancer);
+const store = createStore(persistedReducer, initialState, enhancer);
 
 sagaMiddleware.run(rootSaga);
 
+export const persistor: Persistor = persistStore(store);
 export default store;

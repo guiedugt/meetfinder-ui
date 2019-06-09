@@ -2,9 +2,9 @@ import { put } from 'redux-saga/effects';
 import { message } from 'antd';
 
 import createReduxModule from './createReduxModule';
-import http from '../utils/http';
 import history from '../routes/history';
 import { normalizeError } from '../utils/error';
+import http, { setToken, removeToken } from '../utils/http';
 
 interface IState {
   logged: boolean;
@@ -42,15 +42,29 @@ const reducer: IReducer<IState> = {
     ...state,
     loading: false,
   }),
+  logout: (state, action) => ({
+    ...state,
+    loading: true,
+  }),
+  logoutSuccess: (state, action) => ({
+    ...state,
+    loading: false,
+    logged: false,
+  }),
+  logoutFailure: (state, action) => ({
+    ...state,
+    loading: true,
+  }),
 };
 
 const sagas: ISagas = {
   *login ({ payload }) {
     try {
-      const user = yield http.post('/auth/login', payload)
+      const res = yield http.post('/auth/login', payload)
         .then(res => res.data);
 
-      yield put(reduxModule.actions.loginSuccess(user));
+      setToken(res.token);
+      yield put(reduxModule.actions.loginSuccess(res.user));
     } catch (err) {
       const errorInfo = normalizeError(err, 'Falha ao autenticar usuário');
       message.error(errorInfo.message);
@@ -62,6 +76,23 @@ const sagas: ISagas = {
   },
   *loginFailure ({ payload }) {
     yield console.log('loginFailure sagas:', payload);
+  },
+  *logout ({ payload }) {
+    try {
+      removeToken();
+      localStorage.removeItem('persist:root');
+      history.push('/login');
+      yield put(reduxModule.actions.logoutSuccess());
+      yield http.post('/auth/logout', payload);
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  *logoutSuccess ({ payload }) {
+    yield console.log('logoutSuccess sagas:', payload);
+  },
+  *logoutFailure ({ payload }) {
+    yield console.log('logoutFailure sagas:', payload);
   },
 };
 

@@ -2,9 +2,9 @@ import { takeLatest, all } from 'redux-saga/effects';
 
 declare global {
   interface IAction {
-    (payload: any): {
+    (payload?: any): {
       type: string;
-      payload: object;
+      payload?: any;
     };
   }
 
