@@ -5,10 +5,6 @@ interface IStatusErrors {
   [key: number]: string;
 }
 
-interface IMessageErrors {
-  [key: string]: string;
-}
-
 interface INormalizeError {
   (error: AxiosError, genericMessage: string): INormalizedError;
 }
@@ -74,17 +70,13 @@ const statusErrors: IStatusErrors = {
   505: 'Versão HTTP não suportada',
 };
 
-const messageErrors: IMessageErrors = {
-  'Network Errors': 'Erro de rede',
-};
-
 const timeoutErrorStatuses: number[] = [408, 503, 504];
 
 export const normalizeError: INormalizeError = (error, genericMessage) => {
   const errorMessage = get(error, 'response.data.error');
   const status = get(error, 'response.status');
 
-  const message = messageErrors[errorMessage] || statusErrors[status] || genericMessage;
+  const message = errorMessage || statusErrors[status] || genericMessage;
 
   const isTimeout = timeoutErrorStatuses.includes(status);
 

@@ -3,6 +3,7 @@ import Template from '../template/Template';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import PasswordRecoveryPage from '../pages/PasswordRecoveryPage';
+import PollListPage from '../pages/PollListPage';
 
 declare global {
   interface IPath {
@@ -14,6 +15,11 @@ declare global {
 }
 
 export const privatePaths: IPath[] = [
+  {
+    name: '/',
+    component: PollListPage,
+    template: Template,
+  },
 ];
 
 export const notLoggedPaths: IPath[] = [

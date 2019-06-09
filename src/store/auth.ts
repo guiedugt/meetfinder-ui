@@ -1,4 +1,5 @@
 import { put } from 'redux-saga/effects';
+import { message } from 'antd';
 
 import createReduxModule from './createReduxModule';
 import http from '../utils/http';
@@ -52,6 +53,7 @@ const sagas: ISagas = {
       yield put(reduxModule.actions.loginSuccess(user));
     } catch (err) {
       const errorInfo = normalizeError(err, 'Falha ao autenticar usuário');
+      message.error(errorInfo.message);
       yield put(reduxModule.actions.loginFailure(errorInfo));
     }
   },
