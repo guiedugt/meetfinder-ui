@@ -2,6 +2,7 @@
 import Template from '../template/Template';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
+import PasswordRecoveryPage from '../pages/PasswordRecoveryPage';
 
 declare global {
   interface IPath {
@@ -24,6 +25,10 @@ export const notLoggedPaths: IPath[] = [
   {
     name: '/register',
     component: RegisterPage,
+  },
+  {
+    name: '/password-recovery',
+    component: PasswordRecoveryPage,
   },
 ];
 

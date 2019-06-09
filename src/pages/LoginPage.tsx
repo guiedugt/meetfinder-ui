@@ -1,12 +1,21 @@
 import React from 'react';
 
 import LoginForm from '../components/forms/LoginForm';
-import { Page } from './styles/Page.styles';
+import { Link } from 'react-router-dom';
+import { Container } from './styles/LoginPage.styles';
+import { Page, Row, Title } from './styles/Page.styles';
 
 const LoginPage: React.FC = (props) => {
   return (
     <Page>
-      <LoginForm />
+      <Container>
+        <Title>Login</Title>
+        <LoginForm />
+        <Row>
+          <Link to="/register">Registrar</Link>
+          <Link to="/password-recovery">Esqueci a senha</Link>
+        </Row>
+      </Container>
     </Page>
   );
 };

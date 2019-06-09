@@ -2,16 +2,15 @@ import React from 'react';
 
 import { Button } from 'antd';
 
-const SubmitButton: React.FC = ({
-  children,
-}) => {
+const SubmitButton: React.FC = (props) => {
   return (
     <Button
       block={true}
       type="primary"
       htmlType="submit"
+      {...props}
     >
-      {children || 'Enviar'}
+      {props.children || 'Enviar'}
     </Button>
   );
 };

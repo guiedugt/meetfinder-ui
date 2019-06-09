@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Page = styled.section`
+  min-height: 100vh;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -24,11 +25,6 @@ export const Col = styled.div<IColProps>`
     flex: 1;
     :not(:last-child) { margin-right: 1rem; }
   `}
-`;
-
-export const UploadTitle = styled.h2`
-  font-weight: 400;
-  font-size: 1.8rem;
 `;
 
 export const Title = styled.h2`
