@@ -1,11 +1,19 @@
 import React from 'react';
 
 import { Form, Input, Icon } from 'antd';
-import { FormComponentProps } from 'antd/lib/form';
+import { WrappedFormUtils } from 'antd/lib/form/Form';
 
-const EmailInput: React.FC<FormComponentProps> = ({
+interface IProps {
+  form?: WrappedFormUtils;
+}
+
+const EmailInput: React.FC<IProps> = ({
   form,
 }) => {
+  if (!form) {
+    throw new Error('Input must be wrapped in a Form component');
+  }
+
   const input: React.ReactNode = (
     <Input
       type="email"

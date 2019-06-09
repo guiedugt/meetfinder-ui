@@ -1,29 +1,42 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import { Form } from 'antd';
-import { FormComponentProps } from 'antd/lib/form';
+import auth from '../../store/auth';
 
+import Form from './Form';
 import EmailInput from '../inputs/EmailInput';
 import PasswordInput from '../inputs/PasswordInput';
-import SubmitButton from '../buttons/SubmitButton';
 
-const LoginForm: React.FC<FormComponentProps> = ({
-  form,
+interface IProps {
+  loading: boolean;
+  login: (credentials: { [key: string]: string }) => void;
+}
+
+const LoginForm: React.FC<IProps> = ({
+  loading,
+  login,
 }) => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) console.log('Received values of form: ', values);
-    });
+  const handleSubmit: IOnSubmit = (values) => {
+    login(values);
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="login-form">
-      <EmailInput form={form} />
-      <PasswordInput form={form} />
-      <SubmitButton />
+    <Form
+      onSubmit={handleSubmit}
+      loading={loading}
+    >
+      <EmailInput />
+      <PasswordInput />
     </Form>
   );
 };
 
-export default Form.create<FormComponentProps>()(LoginForm);
+const mapStateToProps = ({ auth }) => ({
+  loading: auth.loading,
+});
+
+const mapDispatchToProps = {
+  login: auth.actions.login,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

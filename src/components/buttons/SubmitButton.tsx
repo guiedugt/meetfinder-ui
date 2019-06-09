@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button } from 'antd';
 
-const SubmitButton: React.FC = (props) => {
+const SubmitButton: React.FC<any> = (props) => {
   return (
     <Button
       block={true}

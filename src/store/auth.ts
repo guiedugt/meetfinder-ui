@@ -1,4 +1,9 @@
+import { put } from 'redux-saga/effects';
+
 import createReduxModule from './createReduxModule';
+import http from '../utils/http';
+import history from '../routes/history';
+import { normalizeError } from '../utils/error';
 
 interface IState {
   logged: boolean;
@@ -40,7 +45,15 @@ const reducer: IReducer<IState> = {
 
 const sagas: ISagas = {
   *login ({ payload }) {
-    yield console.log('login sagas:', payload);
+    try {
+      const user = yield http.post('/auth/login', payload)
+        .then(res => res.data);
+
+      yield put(reduxModule.actions.loginSuccess(user));
+    } catch (err) {
+      const errorInfo = normalizeError(err, 'Falha ao autenticar usuário');
+      yield put(reduxModule.actions.loginFailure(errorInfo));
+    }
   },
   *loginSuccess ({ payload }) {
     yield console.log('loginSuccess sagas:', payload);
@@ -50,6 +63,6 @@ const sagas: ISagas = {
   },
 };
 
-const auth = createReduxModule<IState>('auth', initialState, reducer, sagas);
+const reduxModule = createReduxModule<IState>('auth', initialState, reducer, sagas);
 
-export default auth;
+export default reduxModule;

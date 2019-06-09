@@ -8,19 +8,18 @@ interface IHosts {
 }
 
 const apiHosts: IHosts = {
-  development: '/',
-  production: '/',
-  staging: '/',
-  demo: '/',
+  development: 'https://meetfinder.herokuapp.com',
+  production: 'https://meetfinder.herokuapp.com',
+  staging: 'https://meetfinder.herokuapp.com',
+  demo: 'https://meetfinder.herokuapp.com',
 };
 
 const { SERVER_ENV } = process.env;
 
 const apiHost: string  = SERVER_ENV ? apiHosts[SERVER_ENV] : apiHosts.development;
-const apiVersion: string = 'v1';
 
 const instance = axios.create({
-  baseURL: `${apiHost}/api/${apiVersion}`,
+  baseURL: apiHost,
 });
 
 export default instance;
