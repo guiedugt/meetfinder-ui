@@ -12,7 +12,6 @@ const RegisterPage: React.FC = (props) => {
         <RegisterForm />
         <Row>
           <Link to="/login">Login</Link>
-          <Link to="/password-recovery">Esqueci a senha</Link>
         </Row>
       </Container>
     </Page>

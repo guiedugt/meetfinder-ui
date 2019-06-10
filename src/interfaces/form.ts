@@ -12,7 +12,7 @@ declare global {
   }
 
   interface IOnSubmit {
-    (values: { [key: string]: any }): void;
+    (values: any): void;
   }
 }
 

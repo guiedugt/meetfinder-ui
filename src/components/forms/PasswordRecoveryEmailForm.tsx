@@ -1,26 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import auth from '../../store/auth';
+import users from '../../store/users';
 
 import Form from './Form';
 import EmailInput from '../inputs/EmailInput';
-import PasswordInput from '../inputs/PasswordInput';
 
 interface IProps {
   loading: boolean;
-  login: (values: {
+  sendPasswordRecoveryEmail: (values: {
     email: string;
-    password: string;
   }) => void;
 }
 
-const LoginForm: React.FC<IProps> = ({
+const PasswordRecoveryEmailForm: React.FC<IProps> = ({
   loading,
-  login,
+  sendPasswordRecoveryEmail,
 }) => {
   const handleSubmit: IOnSubmit = (values) => {
-    login(values);
+    sendPasswordRecoveryEmail(values);
   };
 
   return (
@@ -29,17 +27,16 @@ const LoginForm: React.FC<IProps> = ({
       loading={loading}
     >
       <EmailInput />
-      <PasswordInput />
     </Form>
   );
 };
 
-const mapStateToProps = ({ auth }) => ({
-  loading: auth.loading,
+const mapStateToProps = ({ users }) => ({
+  loading: users.loading,
 });
 
 const mapDispatchToProps = {
-  login: auth.actions.login,
+  sendPasswordRecoveryEmail: users.actions.sendPasswordRecoveryEmail,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(PasswordRecoveryEmailForm);

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import LoginForm from '../components/forms/LoginForm';
+import PasswordRecoveryModal from '../components/modals/PasswordRecoveryModal';
 import ResendEmailModal from '../components/modals/ResendEmailModal';
 import { Link } from 'react-router-dom';
 import { Page, Container, Row, Title } from './styles/Page.styles';
@@ -12,11 +13,11 @@ const LoginPage: React.FC = (props) => {
         <Title>Login</Title>
         <LoginForm />
         <Row>
-          <Link to="/register">Registrar</Link>
-          <Link to="/password-recovery">Esqueci a senha</Link>
+          <ResendEmailModal />
+          <PasswordRecoveryModal />
         </Row>
         <Row>
-          <ResendEmailModal />
+          <Link to="/register">Registrar</Link>
         </Row>
       </Container>
     </Page>

@@ -5,10 +5,12 @@ import { WrappedFormUtils } from 'antd/lib/form/Form';
 
 interface IProps {
   form?: WrappedFormUtils;
+  placeholder?: string;
 }
 
 const PasswordConfirmationInput: React.FC<IProps> = ({
   form,
+  placeholder,
 }) => {
   if (!form) {
     throw new Error('Input must be wrapped in a Form component');
@@ -17,7 +19,7 @@ const PasswordConfirmationInput: React.FC<IProps> = ({
   const input: React.ReactNode = (
     <Input
       type="password"
-      placeholder="Confirmar Senha"
+      placeholder={placeholder || 'Confirmar senha'}
       prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
     />
   );

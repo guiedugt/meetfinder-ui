@@ -24,7 +24,7 @@ const RegisterPage: React.FC<IProps> = ({
       const { token } = match.params;
       confirmEmail(token);
     },
-    [],
+    [match.params, confirmEmail],
   );
 
   return (

@@ -4,29 +4,23 @@ import { connect } from 'react-redux';
 import users from '../../store/users';
 
 import Form from './Form';
-import NameInput from '../inputs/NameInput';
-import EmailInput from '../inputs/EmailInput';
-import EmailConfirmationInput from '../inputs/EmailConfirmationInput';
 import PasswordInput from '../inputs/PasswordInput';
 import PasswordConfirmationInput from '../inputs/PasswordConfirmationInput';
 
 interface IProps {
   loading: boolean;
-  register: (values: {
-    name: string;
-    email: string;
-    'email-confirmation': string;
+  changePassword: (values: {
     password: string;
     'password-confirmation': string;
   }) => void;
 }
 
-const RegisterForm: React.FC<IProps> = ({
+const ChangePasswordForm: React.FC<IProps> = ({
   loading,
-  register,
+  changePassword,
 }) => {
   const handleSubmit: IOnSubmit = (values) => {
-    register(values);
+    changePassword(values);
   };
 
   return (
@@ -34,11 +28,8 @@ const RegisterForm: React.FC<IProps> = ({
       onSubmit={handleSubmit}
       loading={loading}
     >
-      <NameInput />
-      <EmailInput />
-      <EmailConfirmationInput />
-      <PasswordInput />
-      <PasswordConfirmationInput />
+      <PasswordInput placeholder="Nova senha" />
+      <PasswordConfirmationInput placeholder="Confirmar nova senha" />
     </Form>
   );
 };
@@ -48,7 +39,7 @@ const mapStateToProps = ({ users }) => ({
 });
 
 const mapDispatchToProps = {
-  register: users.actions.register,
+  changePassword: users.actions.changePassword,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePasswordForm);
