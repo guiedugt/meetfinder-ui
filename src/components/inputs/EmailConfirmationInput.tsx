@@ -7,7 +7,7 @@ interface IProps {
   form?: WrappedFormUtils;
 }
 
-const EmailInput: React.FC<IProps> = ({
+const EmailConfirmationInput: React.FC<IProps> = ({
   form,
 }) => {
   if (!form) {
@@ -17,18 +17,17 @@ const EmailInput: React.FC<IProps> = ({
   const input: React.ReactNode = (
     <Input
       type="email"
-      placeholder="Email"
-      prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+      placeholder="Confirmar Email"
+      prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
     />
   );
 
   const confirmEmail: IFieldValidator = (rule, value, callback) => {
-    const emailConfirmation = form.getFieldValue('email-confirmation');
-    value && emailConfirmation && value !== emailConfirmation
+    value && value !== form.getFieldValue('email')
       ? callback('Emails não conferem.')
       : callback();
 
-    emailConfirmation && form.validateFields(['email-confirmation']);
+    form.validateFields(['email']);
   };
 
   const fieldDecorator: IFieldDecorator = id => form.getFieldDecorator(id, {
@@ -41,9 +40,9 @@ const EmailInput: React.FC<IProps> = ({
 
   return (
     <Form.Item>
-      {fieldDecorator('email')(input)}
+      {fieldDecorator('email-confirmation')(input)}
     </Form.Item>
   );
 };
 
-export default EmailInput;
+export default EmailConfirmationInput;

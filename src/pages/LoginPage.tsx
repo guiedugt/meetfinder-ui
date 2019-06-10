@@ -2,13 +2,12 @@ import React from 'react';
 
 import LoginForm from '../components/forms/LoginForm';
 import { Link } from 'react-router-dom';
-import { Container } from './styles/LoginPage.styles';
-import { Page, Row, Title } from './styles/Page.styles';
+import { Page, Container, Row, Title } from './styles/Page.styles';
 
 const LoginPage: React.FC = (props) => {
   return (
     <Page>
-      <Container>
+      <Container center={true}>
         <Title>Login</Title>
         <LoginForm />
         <Row>

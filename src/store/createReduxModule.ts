@@ -74,8 +74,7 @@ function createModule<State>(
     );
     watchers = Object.entries(types).map(([fn, type]: any) =>
       function* () {
-        if (!sagasHandlers[fn]) throw new Error(`${fn} saga not defined`);
-        yield takeLatest(type, sagasHandlers[fn]);
+        if (sagasHandlers[fn]) yield takeLatest(type, sagasHandlers[fn]);
       },
     );
 

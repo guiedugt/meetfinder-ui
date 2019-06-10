@@ -7,7 +7,7 @@ interface IProps {
   form?: WrappedFormUtils;
 }
 
-const PasswordInput: React.FC<IProps> = ({
+const PasswordConfirmationInput: React.FC<IProps> = ({
   form,
 }) => {
   if (!form) {
@@ -17,18 +17,17 @@ const PasswordInput: React.FC<IProps> = ({
   const input: React.ReactNode = (
     <Input
       type="password"
-      placeholder="Senha"
+      placeholder="Confirmar Senha"
       prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
     />
   );
 
   const confirmPassword: IFieldValidator = (rule, value, callback) => {
-    const passwordConfirmation = form.getFieldValue('password-confirmation');
-    value && passwordConfirmation && value !== passwordConfirmation
+    value && value !== form.getFieldValue('password')
       ? callback('Senhas não conferem.')
       : callback();
 
-    passwordConfirmation && form.validateFields(['password-confirmation']);
+    form.validateFields(['password']);
   };
 
   const fieldDecorator: IFieldDecorator = id => form.getFieldDecorator(id, {
@@ -41,9 +40,9 @@ const PasswordInput: React.FC<IProps> = ({
 
   return (
     <Form.Item>
-      {fieldDecorator('password')(input)}
+      {fieldDecorator('password-confirmation')(input)}
     </Form.Item>
   );
 };
 
-export default PasswordInput;
+export default PasswordConfirmationInput;

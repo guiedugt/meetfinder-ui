@@ -9,6 +9,19 @@ export const Page = styled.section`
   width: 100%;
 `;
 
+interface IContainerProps {
+  center?: boolean;
+}
+
+export const Container = styled.div<IContainerProps>`
+  width: 100%;
+  max-width: 30rem;
+  ${props => props.center && 'margin: auto;'}
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  padding: 1rem;
+`;
+
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;

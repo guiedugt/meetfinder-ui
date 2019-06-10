@@ -9,7 +9,7 @@ import PasswordInput from '../inputs/PasswordInput';
 
 interface IProps {
   loading: boolean;
-  login: (credentials: { [key: string]: string }) => void;
+  login: (values: { [key: string]: string }) => void;
 }
 
 const LoginForm: React.FC<IProps> = ({

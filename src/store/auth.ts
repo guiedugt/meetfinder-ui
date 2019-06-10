@@ -71,12 +71,6 @@ const sagas: ISagas = {
       yield put(reduxModule.actions.loginFailure(errorInfo));
     }
   },
-  *loginSuccess ({ payload }) {
-    yield console.log('loginSuccess sagas:', payload);
-  },
-  *loginFailure ({ payload }) {
-    yield console.log('loginFailure sagas:', payload);
-  },
   *logout ({ payload }) {
     try {
       removeToken();
@@ -87,12 +81,6 @@ const sagas: ISagas = {
     } catch (err) {
       console.error(err);
     }
-  },
-  *logoutSuccess ({ payload }) {
-    yield console.log('logoutSuccess sagas:', payload);
-  },
-  *logoutFailure ({ payload }) {
-    yield console.log('logoutFailure sagas:', payload);
   },
 };
 
