@@ -6,8 +6,6 @@ import history from './routes/history';
 
 import Routes from './routes/Routes';
 
-import './App.css';
-
 const App: React.FC = () => {
   return (
     <Router history={history}>

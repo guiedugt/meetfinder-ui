@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const Page = styled.section`
-  min-height: 100vh;
+  height: 100%;
   display: flex;
-  flex: 1;
   flex-direction: column;
   margin: 0 auto;
   padding: 0.75rem;

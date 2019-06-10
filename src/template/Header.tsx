@@ -1,19 +1,21 @@
 import React from 'react';
 
-import { Container, Content } from './styles/Header.styles';
+import LogoutButton from '../components/buttons/LogoutButton';
+import { Container, Content, Title } from './styles/Header.styles';
 
 interface IProps {
   children?: React.ReactNode;
 }
 
-const Template: React.FC<IProps> = (props) => {
+const Header: React.FC<IProps> = (props) => {
   return (
     <Container>
       <Content>
-        Logs
+        <Title>MeetFinder</Title>
+        <LogoutButton />
       </Content>
     </Container>
   );
 };
 
-export default Template;
+export default Header;
