@@ -27,7 +27,7 @@ const NameInput: React.FC<IProps> = ({
       { type: 'string', required: true, message: 'Campo obrigatório.' },
       {
         type: 'string',
-        pattern: /^[a-zA-ZéúíóáÉÚÍÓÁèùìòàçÇÈÙÌÒÀõãñÕÃÑêûîôâÊÛÎÔÂëÿüïöäËYÜÏÖÄ\-\ \s]+$/,
+        pattern: /^[a-zA-ZéúíóáÉÚÍÓÁèùìòàçÇÈÙÌÒÀõãñÕÃÑêûîôâÊÛÎÔÂëÿüïöäËYÜÏÖÄ\- \s]+$/,
         message: 'Nome inválido.',
       },
     ],

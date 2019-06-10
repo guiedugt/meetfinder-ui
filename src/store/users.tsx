@@ -34,11 +34,25 @@ const reducer: IReducer<IState> = {
   registerFailure: (state, action) => ({
     ...state,
     loading: false,
+    error: action.payload,
+  }),
+  resendEmail: (state, action) => ({
+    ...state,
+    loading: true,
+  }),
+  resendEmailSuccess: (state, action) => ({
+    ...state,
+    loading: false,
+  }),
+  resendEmailFailure: (state, action) => ({
+    ...state,
+    loading: false,
+    error: action.payload,
   }),
 };
 
 const sagas: ISagas = {
-  *register ({ payload }) {
+  *register({ payload }) {
     try {
       const res = yield http.post('/users/register', payload)
         .then(res => res.data);
@@ -52,7 +66,7 @@ const sagas: ISagas = {
   },
   *registerSuccess({ payload }) {
     history.replace('/login');
-    notification.open({
+    yield notification.open({
       icon: <Icon type="mail" style={{ color: '#108ee9' }} />,
       message: 'Email de Confirmação',
       description: `Enviamos um email de confirmação para você.
@@ -60,8 +74,26 @@ const sagas: ISagas = {
       duration: null,
     });
   },
-  *registerFailure ({ payload }) {
-    yield console.log('registerFailure sagas:', payload);
+  *resendEmail({ payload }) {
+    try {
+      yield http.post('/users/register/resend', payload)
+
+      yield put(reduxModule.actions.resendEmailSuccess());
+    } catch (err) {
+      const errorInfo = normalizeError(err, 'Falha ao reenviar email');
+      message.error(errorInfo.message);
+      yield put(reduxModule.actions.resendEmailFailure(errorInfo));
+    }
+  },
+  *resendEmailSuccess({ payload }) {
+    history.replace('/login');
+    yield notification.open({
+      icon: <Icon type="mail" style={{ color: '#108ee9' }} />,
+      message: 'Email de Confirmação',
+      description: `Enviamos um email de confirmação para você.
+      Por favor verifique sua caixa de entrada para continuar.`,
+      duration: null,
+    });
   },
 };
 
