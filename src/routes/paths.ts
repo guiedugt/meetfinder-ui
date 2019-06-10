@@ -1,7 +1,9 @@
+import { ConnectedComponentClass } from 'react-redux';
 
 import Template from '../template/Template';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
+import RegisterConfirmationPage from '../pages/RegisterConfirmationPage';
 import PasswordRecoveryPage from '../pages/PasswordRecoveryPage';
 import PollListPage from '../pages/PollListPage';
 
@@ -31,6 +33,10 @@ export const notLoggedPaths: IPath[] = [
   {
     name: '/register',
     component: RegisterPage,
+  },
+  {
+    name: '/register/:token',
+    component: RegisterConfirmationPage,
   },
   {
     name: '/password-recovery',

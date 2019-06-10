@@ -49,6 +49,19 @@ const reducer: IReducer<IState> = {
     loading: false,
     error: action.payload,
   }),
+  confirmEmail: (state, action) => ({
+    ...state,
+    loading: true,
+  }),
+  confirmEmailSuccess: (state, action) => ({
+    ...state,
+    loading: false,
+  }),
+  confirmEmailFailure: (state, action) => ({
+    ...state,
+    loading: false,
+    error: action.payload,
+  }),
 };
 
 const sagas: ISagas = {
@@ -76,7 +89,7 @@ const sagas: ISagas = {
   },
   *resendEmail({ payload }) {
     try {
-      yield http.post('/users/register/resend', payload)
+      yield http.post('/users/register/resend', payload);
 
       yield put(reduxModule.actions.resendEmailSuccess());
     } catch (err) {
@@ -94,6 +107,22 @@ const sagas: ISagas = {
       Por favor verifique sua caixa de entrada para continuar.`,
       duration: null,
     });
+  },
+  *confirmEmail({ payload: token }) {
+    try {
+      yield http.post(`/users/register/${token}`);
+      yield put(reduxModule.actions.confirmEmailSuccess());
+      history.replace('/login');
+      message.success('Email confirmado com sucesso');
+    } catch (err) {
+      const errorInfo = normalizeError(
+        err,
+        'Falha ao confirmar email. Tente novamente mais tarde.',
+      );
+      message.error(errorInfo.message);
+      yield put(reduxModule.actions.confirmEmailFailure(errorInfo));
+      history.replace('/login');
+    }
   },
 };
 
