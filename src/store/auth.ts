@@ -3,11 +3,13 @@ import { message } from 'antd';
 
 import createReduxModule from './createReduxModule';
 import history from '../routes/history';
-import { normalizeError } from '../utils/error';
 import http, { setToken, removeToken } from '../utils/http';
+import { normalizeError } from '../utils/error';
+import { persistor } from './';
 
 interface IState {
   logged: boolean;
+  token: string;
   user: IUser;
   loading: boolean;
   error: {
@@ -19,9 +21,11 @@ interface IState {
 
 const initialState: IState = {
   logged: false,
+  token: '',
   user: {
+    id: '',
+    name: '',
     email: '',
-    token: '',
   },
   loading: false,
   error: { message: '' },
@@ -34,7 +38,8 @@ const reducer: IReducer<IState> = {
   }),
   loginSuccess: (state, action) => ({
     ...state,
-    user: action.payload,
+    token: action.payload.token,
+    user: action.payload.user,
     loading: false,
     logged: true,
   }),
@@ -60,11 +65,11 @@ const reducer: IReducer<IState> = {
 const sagas: ISagas = {
   *login ({ payload }) {
     try {
-      const res = yield http.post('/auth/login', payload)
+      const { token, user } = yield http.post('/auth/login', payload)
         .then(res => res.data);
 
-      setToken(res.token);
-      yield put(reduxModule.actions.loginSuccess(res.user));
+      setToken(token);
+      yield put(reduxModule.actions.loginSuccess({ token, user }));
     } catch (err) {
       const errorInfo = normalizeError(err, 'Falha ao autenticar usuário');
       message.error(errorInfo.message);
@@ -78,6 +83,7 @@ const sagas: ISagas = {
       history.push('/login');
       yield put(reduxModule.actions.logoutSuccess());
       yield http.post('/auth/logout', payload);
+      yield persistor.purge();
     } catch (err) {
       console.error(err);
     }

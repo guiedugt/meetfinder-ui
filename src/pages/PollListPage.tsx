@@ -1,13 +1,31 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import { Page } from './styles/Page.styles';
+import PollFilter from '../components/filters/PollFilter';
+import PollList from '../components/lists/PollList';
+import { Spin } from 'antd';
+import { Page, Title } from './styles/Page.styles';
 
-const PollListPage: React.FC = (props) => {
+interface IProps {
+  loading: boolean;
+}
+
+const PollListPage: React.FC<IProps> = ({
+  loading,
+}) => {
   return (
     <Page>
-      <p>PollListPage</p>
+      <Spin spinning={loading}>
+        <Title>Enquetes</Title>
+        <PollFilter />
+        <PollList />
+      </Spin>
     </Page>
   );
 };
 
-export default PollListPage;
+const mapStateToProps = ({ polls }) => ({
+  loading: polls.loading,
+});
+
+export default connect(mapStateToProps)(PollListPage);

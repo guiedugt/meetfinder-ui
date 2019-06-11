@@ -6,7 +6,7 @@ import { JWT_EXPIRATION } from '../utils/constants';
 
 export const handleToken = store => next => (action) => {
   const isRehydrate = action.type === 'persist/REHYDRATE';
-  const rehydrateToken = get(action, 'payload.auth.user.token');
+  const rehydrateToken = get(action, 'payload.auth.token');
 
   // Set token on rehydrate
   if (isRehydrate && rehydrateToken) setToken(rehydrateToken, true);

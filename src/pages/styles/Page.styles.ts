@@ -7,6 +7,7 @@ export const Page = styled.section`
   margin: 0 auto;
   padding: 0.75rem;
   width: 100%;
+  max-width: 60rem;
 `;
 
 interface IContainerProps {
