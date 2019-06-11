@@ -7,7 +7,7 @@ import Form from './Form';
 import NameInput from '../inputs/NameInput';
 
 interface IProps {
-  initialValues: IPoll,
+  initialValues?: IPoll;
   loading: boolean;
   createPoll: (values: {
     email: string;
