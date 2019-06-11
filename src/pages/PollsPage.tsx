@@ -10,7 +10,7 @@ interface IProps {
   loading: boolean;
 }
 
-const PollListPage: React.FC<IProps> = ({
+const PollsPage: React.FC<IProps> = ({
   loading,
 }) => {
   return (
@@ -28,4 +28,4 @@ const mapStateToProps = ({ polls }) => ({
   loading: polls.loading,
 });
 
-export default connect(mapStateToProps)(PollListPage);
+export default connect(mapStateToProps)(PollsPage);
