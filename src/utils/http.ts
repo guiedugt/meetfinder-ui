@@ -8,10 +8,10 @@ interface IHosts {
 }
 
 const apiHosts: IHosts = {
-  development: 'https://meetfinder.herokuapp.com',
-  production: 'https://meetfinder.herokuapp.com',
-  staging: 'https://meetfinder.herokuapp.com',
-  demo: 'https://meetfinder.herokuapp.com',
+  development: 'https://meetfinderapi.herokuapp.com',
+  production: 'https://meetfinderapi.herokuapp.com',
+  staging: 'https://meetfinderapi.herokuapp.com',
+  demo: 'https://meetfinderapi.herokuapp.com',
 };
 
 const { SERVER_ENV } = process.env;
