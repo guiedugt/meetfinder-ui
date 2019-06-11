@@ -4,10 +4,13 @@ declare global {
     deadline: Date;
     name: string;
     owner: IUser;
-    subjects: [{
-      name: string;
-      voters: IUser[];
-    }];
+    subjects: ISubject[];
+  }
+
+  interface ISubject {
+    id: string;
+    name: string;
+    voters: IUser[];
   }
 }
 

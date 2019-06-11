@@ -3,7 +3,13 @@ import React, { Fragment, useState } from 'react';
 import PollForm from '../forms/PollForm';
 import { Modal, Button } from 'antd';
 
-const EditPollModal: React.FC = (props) => {
+interface IProps {
+  poll: IPoll;
+}
+
+const EditPollModal: React.FC<IProps> = ({
+  poll,
+}) => {
   const [visible, setVisible] = useState(false);
 
   const toggleModal: () => void = () => setVisible(!visible);
@@ -30,7 +36,7 @@ const EditPollModal: React.FC = (props) => {
         title="Editar Enquete"
         footer={null}
       >
-        <PollForm />
+        <PollForm initialValues={poll} />
       </Modal>
     </Fragment>
   );

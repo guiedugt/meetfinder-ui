@@ -7,6 +7,7 @@ import Form from './Form';
 import NameInput from '../inputs/NameInput';
 
 interface IProps {
+  initialValues: IPoll,
   loading: boolean;
   createPoll: (values: {
     email: string;
@@ -15,9 +16,12 @@ interface IProps {
 }
 
 const PollForm: React.FC<IProps> = ({
+  initialValues,
   loading,
   createPoll,
 }) => {
+  console.log('initialValues:', initialValues);
+
   const handleSubmit: IOnSubmit = (values) => {
     createPoll(values);
   };

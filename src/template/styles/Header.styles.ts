@@ -6,7 +6,7 @@ export const Container = styled.header`
   margin: 0 auto;
   padding: 1rem;
   width: 100%;
-  `;
+`;
 
 export const Content = styled.div`
   max-width: 90rem;
@@ -27,4 +27,5 @@ export const Title = styled.h1`
   margin: 0;
   padding: 0;
   line-height: 1.5rem;
+  font-size: 1.5rem;
 `;

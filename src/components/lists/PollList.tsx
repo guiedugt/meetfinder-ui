@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import polls from '../../store/polls';
 
 import PollItem from '../items/PollItem';
-import { Collapse } from 'antd';
+import { Collapse, Tooltip } from 'antd';
 import { Header } from './styles/List.styles';
 
 interface IProps {
@@ -21,10 +21,12 @@ const PollList: React.FC<IProps> = ({
   const header: (poll: IPoll) => JSX.Element = poll => (
     <Header>
       <span className="poll-name">
-        {poll.name}
+        <Tooltip title={poll.name}>
+          {poll.name}
+        </Tooltip>
       </span>
       <span className="poll-deadline">
-        Encerra em {new Date(poll.deadline).toLocaleString()}
+        Encerra em {new Date(poll.deadline).toLocaleDateString()}
       </span>
     </Header>
   );

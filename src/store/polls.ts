@@ -1,4 +1,4 @@
-import { put } from 'redux-saga/effects';
+import { put, select } from 'redux-saga/effects';
 import { message } from 'antd';
 
 import createReduxModule from './createReduxModule';
@@ -51,6 +51,20 @@ const reducer: IReducer<IState> = {
     error: action.payload,
     loading: true,
   }),
+  votePoll: (state, action) => ({
+    ...state,
+    loading: true,
+  }),
+  votePollSuccess: (state, action) => ({
+    ...state,
+    items: action.payload,
+    loading: false,
+  }),
+  votePollFailure: (state, action) => ({
+    ...state,
+    error: action.payload,
+    loading: true,
+  }),
 };
 
 const sagas: ISagas = {
@@ -83,6 +97,24 @@ const sagas: ISagas = {
       const errorInfo = normalizeError(err, 'Falha ao deletar enquete');
       message.error(errorInfo.message);
       yield put(reduxModule.actions.deletePollFailure(errorInfo));
+    }
+  },
+  *votePoll({ payload }) {
+    try {
+      const { id, subject } = payload;
+      const poll = yield http.post(`/polls/${id}/vote`, subject)
+        .then(res => res.data);
+
+      const polls: IPoll[] = yield select(store => store.polls.items);
+      const index: number = polls.findIndex(poll => poll.id === id);
+      polls[index] = poll;
+
+      message.success('Voto computado');
+      yield put(reduxModule.actions.votePollSuccess([...polls]));
+    } catch (err) {
+      const errorInfo = normalizeError(err, 'Falha ao computar voto');
+      message.error(errorInfo.message);
+      yield put(reduxModule.actions.votePollFailure(errorInfo));
     }
   },
 };
