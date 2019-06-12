@@ -2,15 +2,22 @@ import React from 'react';
 
 import { Button } from 'antd';
 
-const SubmitButton: React.FC<any> = (props) => {
+interface IProps {
+  loading?: boolean;
+}
+
+const SubmitButton: React.FC<IProps> = ({
+  children,
+  loading,
+}) => {
   return (
     <Button
       block={true}
       type="primary"
       htmlType="submit"
-      {...props}
+      loading={loading}
     >
-      {props.children || 'Enviar'}
+      {children || 'Salvar'}
     </Button>
   );
 };

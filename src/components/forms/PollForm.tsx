@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import polls from '../../store/polls';
 
 import Form from './Form';
-import NameInput from '../inputs/NameInput';
+import TextInput from '../inputs/TextInput';
+import SubjectsInput from '../inputs/SubjectsInput';
+import DeadlineInput from '../inputs/DeadlineInput';
 
 interface IProps {
-  initialValues?: IPoll;
   loading: boolean;
+  initialValues?: IPoll;
   createPoll: (values: {
     email: string;
     password: string;
@@ -16,22 +18,30 @@ interface IProps {
 }
 
 const PollForm: React.FC<IProps> = ({
-  initialValues,
   loading,
   createPoll,
+  initialValues,
 }) => {
-  console.log('initialValues:', initialValues);
-
   const handleSubmit: IOnSubmit = (values) => {
+    values.deadline = values.deadline.toISOString();
     createPoll(values);
   };
 
+  console.log('initialValues:', initialValues)
   return (
     <Form
+      initialValues={initialValues}
       onSubmit={handleSubmit}
       loading={loading}
     >
-      <NameInput />
+      <TextInput
+        name="name"
+        label="Nome"
+        required={true}
+        placeholder="Descrição da enquete"
+      />
+      <SubjectsInput />
+      <DeadlineInput label="Encerramento" />
     </Form>
   );
 };

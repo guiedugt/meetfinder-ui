@@ -10,13 +10,11 @@ interface IProps {
   deletePoll: (pollId: string) => void;
 }
 
-const DeletePollButton: React.FC<IProps> = (props) => {
-  const {
-    poll,
-    deletePoll,
-    children,
-  } = props;
-
+const DeletePollButton: React.FC<IProps> = ({
+  poll,
+  deletePoll,
+  children,
+}) => {
   const handleConfirm: (e?:React.MouseEvent<MouseEvent>) => void = (e) => {
     deletePoll(poll.id);
   };
@@ -31,7 +29,7 @@ const DeletePollButton: React.FC<IProps> = (props) => {
     >
       <Button
         type="danger"
-        {...props}
+        icon="delete"
       >
         {children || 'Deletar Enquete'}
       </Button>

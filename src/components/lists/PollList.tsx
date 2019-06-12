@@ -26,7 +26,7 @@ const PollList: React.FC<IProps> = ({
         </Tooltip>
       </span>
       <span className="poll-deadline">
-        Encerra em {new Date(poll.deadline).toLocaleDateString()}
+        Encerra em {new Date(poll.deadline).toLocaleString()}
       </span>
     </Header>
   );

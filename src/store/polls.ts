@@ -24,6 +24,19 @@ const initialState: IState = {
 };
 
 const reducer: IReducer<IState> = {
+  createPoll: (state, action) => ({
+    ...state,
+    loading: true,
+  }),
+  createPollSuccess: (state, action) => ({
+    ...state,
+    loading: false,
+  }),
+  createPollFailure: (state, action) => ({
+    ...state,
+    error: action.payload,
+    loading: false,
+  }),
   fetchPolls: (state, action) => ({
     ...state,
     loading: true,
@@ -36,7 +49,7 @@ const reducer: IReducer<IState> = {
   fetchPollsFailure: (state, action) => ({
     ...state,
     error: action.payload,
-    loading: true,
+    loading: false,
   }),
   deletePoll: (state, action) => ({
     ...state,
@@ -49,7 +62,7 @@ const reducer: IReducer<IState> = {
   deletePollFailure: (state, action) => ({
     ...state,
     error: action.payload,
-    loading: true,
+    loading: false,
   }),
   votePoll: (state, action) => ({
     ...state,
@@ -63,11 +76,25 @@ const reducer: IReducer<IState> = {
   votePollFailure: (state, action) => ({
     ...state,
     error: action.payload,
-    loading: true,
+    loading: false,
   }),
 };
 
 const sagas: ISagas = {
+  *createPoll({ payload }) {
+    try {
+      yield http.post('/polls', payload);
+
+      message.success('Enquete criada com sucesso');
+      yield put(reduxModule.actions.createPollSuccess());
+      yield put(reduxModule.actions.fetchPolls());
+    } catch (err) {
+      console.log('err:', err)
+      const errorInfo = normalizeError(err, 'Falha ao criar enquete');
+      message.error(errorInfo.message);
+      yield put(reduxModule.actions.createPollFailure(errorInfo));
+    }
+  },
   *fetchPolls({ payload = {} }) {
     try {
       const params = {

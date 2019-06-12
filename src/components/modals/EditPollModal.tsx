@@ -21,6 +21,7 @@ const EditPollModal: React.FC<IProps> = ({
 
   const toggleButton: JSX.Element = (
     <Button
+      icon="edit"
       onClick={handleClick}
     >
       Editar Enquete

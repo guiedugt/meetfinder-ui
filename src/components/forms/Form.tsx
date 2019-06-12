@@ -1,5 +1,7 @@
 import React from 'react';
 
+import moment from 'moment';
+
 import { Form as AntdForm, Spin } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 
@@ -8,13 +10,14 @@ import SubmitButton from '../buttons/SubmitButton';
 interface IProps extends FormComponentProps {
   loading: boolean;
   onSubmit: (values: { [key: string]: any }) => void;
+  initialValues?: { [key: string]: any };
 }
 
 const Form: React.FC<IProps> = ({
   form,
   loading,
-  onSubmit,
   children,
+  onSubmit,
 }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,4 +40,28 @@ const Form: React.FC<IProps> = ({
   );
 };
 
-export default AntdForm.create<IProps>()(Form);
+const momentKeys: string[] = ['deadline', 'date'];
+
+const mapPropsToFields = (props: IProps) => {
+  if (!props.initialValues) return;
+
+  const initialValues: { [key: string]: any } =
+    Object.entries(props.initialValues)
+      .reduce(
+        (values, [key, value]) => {
+          return {
+            ...values,
+            [key]: AntdForm.createFormField({
+              value: momentKeys.includes(key)
+                ? moment(value)
+                : value,
+            }),
+          };
+        },
+        {},
+      );
+
+  return initialValues;
+};
+
+export default AntdForm.create<IProps>({ mapPropsToFields })(Form);
