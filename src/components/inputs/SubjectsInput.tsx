@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Form, Input, Button, Icon } from 'antd';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
@@ -10,37 +10,30 @@ interface IProps {
 const SubjectsInput: React.FC<IProps> = ({
   form,
 }) => {
-  const [fields, setFields] = useState<React.ReactNode[]>([
-    <Input
-      key={0}
-      type="text"
-      placeholder="Nome do assunto"
-    />,
-  ]);
-
   if (!form) {
     throw new Error('Input must be wrapped in a Form component');
   }
 
-  const fieldDecorator: IFieldDecorator = id => form.getFieldDecorator(id, {
-    rules: [
-      { required: true, message: 'Campo obrigatório.' },
-    ],
+  const subjects = form.getFieldValue('subjects') || [];
+
+  const fieldDecorator: IFieldDecorator = (id, initialValue) => form.getFieldDecorator(id, {
+    initialValue,
+    normalize: value => value && value.name ? value.name : value,
+    getValueFromEvent: e => ({ name: e.target.value }),
+    preserve: false,
+    rules: [{ required: true, message: 'Campo obrigatório.' }],
   });
 
   const add: (e: React.MouseEvent) => void = (e) => {
-    setFields([...fields, input(fields.length)]);
+    form.getFieldDecorator(`subjects[${subjects.length}]`);
+    form.setFieldsValue({ [`subjects[${subjects.length}]`]: '' });
   };
 
   const removeIcon: (i: number) => React.ReactNode = (i) => {
-    if (fields.length <= 1) return null;
-
     const remove: () => void = () => {
       const subjects = form.getFieldValue('subjects');
       subjects.splice(i, 1);
-      fields.splice(i, 1);
-      form.setFieldsValue({ subjects });
-      setFields([...fields]);
+      form.setFieldsValue({ subjects: subjects.filter((subject, i) => i !== (subjects.length - 1) ) });
     };
 
     return (
@@ -57,12 +50,14 @@ const SubjectsInput: React.FC<IProps> = ({
       type="text"
       placeholder="Nome do assunto"
       addonAfter={removeIcon(i)}
+      name="teste"
     />
   );
 
-  const inputs: React.ReactNode[] = fields.map((field, i) => (
-    fieldDecorator(`subjects[${i}]`)(input(i))
-  ));
+  const inputs: React.ReactNode[] = subjects.map((subject: ISubject, i: number) => {
+    const name = subject && subject.name ? subject.name : subject;
+    return fieldDecorator(`subjects[${i}]`, name)(input(i));
+  });
 
   const addButton: React.ReactNode = (
     <Button
@@ -75,6 +70,7 @@ const SubjectsInput: React.FC<IProps> = ({
     </Button>
   );
 
+  console.log('subjects:', subjects);
   return (
     <Form.Item
       required={true}

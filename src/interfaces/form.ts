@@ -1,6 +1,6 @@
 declare global {
   interface IFieldDecorator {
-    (id: string): (node: React.ReactNode) => React.ReactNode;
+    (id: string, initialValue?: any): (node: React.ReactNode) => React.ReactNode;
   }
 
   interface IFieldValidator {

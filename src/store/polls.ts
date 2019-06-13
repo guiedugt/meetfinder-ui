@@ -89,7 +89,6 @@ const sagas: ISagas = {
       yield put(reduxModule.actions.createPollSuccess());
       yield put(reduxModule.actions.fetchPolls());
     } catch (err) {
-      console.log('err:', err)
       const errorInfo = normalizeError(err, 'Falha ao criar enquete');
       message.error(errorInfo.message);
       yield put(reduxModule.actions.createPollFailure(errorInfo));

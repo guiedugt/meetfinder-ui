@@ -27,7 +27,6 @@ const PollForm: React.FC<IProps> = ({
     createPoll(values);
   };
 
-  console.log('initialValues:', initialValues)
   return (
     <Form
       initialValues={initialValues}
