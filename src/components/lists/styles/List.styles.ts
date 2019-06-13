@@ -16,3 +16,9 @@ export const Header = styled.span`
     margin-left: 1rem;
   }
 `;
+
+export const PaginationContainer = styled.div`
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+`;

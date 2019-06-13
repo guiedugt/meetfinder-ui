@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import workshops from '../../store/workshops';
@@ -6,8 +6,8 @@ import workshops from '../../store/workshops';
 import WorkshopItem from '../items/WorkshopItem';
 import EditWorkshopModal from '../modals/EditWorkshopModal';
 import DeleteWorkshopButton from '../buttons/DeleteWorkshopButton';
-import { Collapse, Tooltip } from 'antd';
-import { Header } from './styles/List.styles';
+import { Collapse, Tooltip, Pagination } from 'antd';
+import { Header, PaginationContainer } from './styles/List.styles';
 
 interface IProps {
   workshops: IWorkshop[];
@@ -47,13 +47,25 @@ const MyWorkshopsList: React.FC<IProps> = ({
     </Collapse.Panel>,
   );
 
+  const handlePageChange = (page: number) => {
+    fetchMyWorkshops({ page });
+  };
+
   return (
-    <Collapse
-      accordion={true}
-      bordered={false}
-    >
-      {panels}
-    </Collapse>
+    <Fragment>
+      <Collapse
+        accordion={true}
+        bordered={false}
+      >
+        {panels}
+      </Collapse>
+      <PaginationContainer>
+        <Pagination
+          total={workshops['count']}
+          onChange={handlePageChange}
+        />
+      </PaginationContainer>
+    </Fragment>
   );
 };
 

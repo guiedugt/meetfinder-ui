@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import polls from '../../store/polls';
 
 import PollItem from '../items/PollItem';
-import { Collapse, Tooltip } from 'antd';
-import { Header } from './styles/List.styles';
+import { Collapse, Tooltip, Pagination } from 'antd';
+import { Header, PaginationContainer } from './styles/List.styles';
 
 interface IProps {
   polls: IPoll[];
@@ -40,13 +40,25 @@ const PollList: React.FC<IProps> = ({
     </Collapse.Panel>,
   );
 
+  const handlePageChange = (page: number) => {
+    fetchPolls({ page });
+  };
+
   return (
-    <Collapse
-      accordion={true}
-      bordered={false}
-    >
-      {panels}
-    </Collapse>
+    <Fragment>
+      <Collapse
+        accordion={true}
+        bordered={false}
+      >
+        {panels}
+      </Collapse>
+      <PaginationContainer>
+        <Pagination
+          total={polls['count']}
+          onChange={handlePageChange}
+        />
+      </PaginationContainer>
+    </Fragment>
   );
 };
 

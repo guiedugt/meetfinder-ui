@@ -3,7 +3,7 @@ import { message } from 'antd';
 
 import createReduxModule from './createReduxModule';
 import { normalizeError } from '../utils/error';
-import http from '../utils/http';
+import http, { mapHeadersToData } from '../utils/http';
 
 interface IState {
   item?: IPoll;
@@ -117,7 +117,7 @@ const sagas: ISagas = {
         filter: payload.filter,
       };
       const polls = yield http.get('/polls', { params })
-        .then(res => res.data);
+        .then(mapHeadersToData('x-count'));
 
       yield put(reduxModule.actions.fetchPollsSuccess(polls));
     } catch (err) {
@@ -135,7 +135,7 @@ const sagas: ISagas = {
         filter: payload.filter,
       };
       const polls = yield http.get('/polls/mine', { params })
-        .then(res => res.data);
+        .then(mapHeadersToData('x-count'));
 
       yield put(reduxModule.actions.fetchMyPollsSuccess(polls));
     } catch (err) {

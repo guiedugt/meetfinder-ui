@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 interface IHosts {
   development: string;
@@ -29,6 +29,14 @@ export const setToken = (token: string, isRehydrate: boolean = false): void => {
 
 export const removeToken = (): void => {
   delete instance.defaults.headers.common['x-token'];
+};
+
+export const mapHeadersToData = (...headers: string[]) => (res: AxiosResponse) => {
+  headers.forEach((header) => {
+    const headerName = header.substr(0, 2).toLocaleLowerCase() === 'x-' ? header.slice(2) : header;
+    res.data[headerName] = res.headers[header];
+  });
+  return res.data;
 };
 
 export default instance;
