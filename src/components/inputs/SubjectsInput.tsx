@@ -20,7 +20,6 @@ const SubjectsInput: React.FC<IProps> = ({
     initialValue,
     normalize: value => value && value.name ? value.name : value,
     getValueFromEvent: e => ({ name: e.target.value }),
-    preserve: false,
     rules: [{ required: true, message: 'Campo obrigatório.' }],
   });
 
@@ -31,9 +30,7 @@ const SubjectsInput: React.FC<IProps> = ({
 
   const removeIcon: (i: number) => React.ReactNode = (i) => {
     const remove: () => void = () => {
-      const subjects = form.getFieldValue('subjects');
-      subjects.splice(i, 1);
-      form.setFieldsValue({ subjects: subjects.filter((subject, i) => i !== (subjects.length - 1) ) });
+      form.setFieldsValue({ [`subjects[${i}]`]: null });
     };
 
     return (
@@ -50,13 +47,12 @@ const SubjectsInput: React.FC<IProps> = ({
       type="text"
       placeholder="Nome do assunto"
       addonAfter={removeIcon(i)}
-      name="teste"
     />
   );
 
   const inputs: React.ReactNode[] = subjects.map((subject: ISubject, i: number) => {
     const name = subject && subject.name ? subject.name : subject;
-    return fieldDecorator(`subjects[${i}]`, name)(input(i));
+    return subject !== null && fieldDecorator(`subjects[${i}]`, name)(input(i));
   });
 
   const addButton: React.ReactNode = (
@@ -70,7 +66,6 @@ const SubjectsInput: React.FC<IProps> = ({
     </Button>
   );
 
-  console.log('subjects:', subjects);
   return (
     <Form.Item
       required={true}

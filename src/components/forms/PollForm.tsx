@@ -13,18 +13,31 @@ interface IProps {
   initialValues?: IPoll;
   createPoll: (values: {
     email: string;
-    password: string;
+    subjects: string[];
+    deadline: string;
+  }) => void;
+  editPoll: (values: {
+    email: string;
+    subjects: string[];
+    deadline: string;
   }) => void;
 }
 
 const PollForm: React.FC<IProps> = ({
   loading,
   createPoll,
+  editPoll,
   initialValues,
 }) => {
   const handleSubmit: IOnSubmit = (values) => {
     values.deadline = values.deadline.toISOString();
-    createPoll(values);
+    values.subjects = values.subjects.filter(Boolean);
+    if (initialValues) {
+      values.id = initialValues.id;
+      editPoll(values);
+    } else {
+      createPoll(values);
+    }
   };
 
   return (
@@ -51,6 +64,7 @@ const mapStateToProps = ({ polls }) => ({
 
 const mapDispatchToProps = {
   createPoll: polls.actions.createPoll,
+  editPoll: polls.actions.editPoll,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PollForm);

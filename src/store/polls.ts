@@ -51,6 +51,19 @@ const reducer: IReducer<IState> = {
     error: action.payload,
     loading: false,
   }),
+  editPoll: (state, action) => ({
+    ...state,
+    loading: true,
+  }),
+  editPollSuccess: (state, action) => ({
+    ...state,
+    loading: false,
+  }),
+  editPollFailure: (state, action) => ({
+    ...state,
+    error: action.payload,
+    loading: false,
+  }),
   deletePoll: (state, action) => ({
     ...state,
     loading: true,
@@ -110,6 +123,19 @@ const sagas: ISagas = {
       const errorInfo = normalizeError(err, 'Falha ao buscar enquetes');
       message.error(errorInfo.message);
       yield put(reduxModule.actions.fetchPollsFailure(errorInfo));
+    }
+  },
+  *editPoll({ payload }) {
+    try {
+      yield http.put(`/polls/${payload.id}`, payload);
+
+      message.success('Enquete editada com sucesso');
+      yield put(reduxModule.actions.editPollSuccess());
+      yield put(reduxModule.actions.fetchPolls());
+    } catch (err) {
+      const errorInfo = normalizeError(err, 'Falha ao editar enquete');
+      message.error(errorInfo.message);
+      yield put(reduxModule.actions.editPollFailure(errorInfo));
     }
   },
   *deletePoll({ payload: id }) {
