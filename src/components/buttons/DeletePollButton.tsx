@@ -21,7 +21,7 @@ const DeletePollButton: React.FC<IProps> = ({
 
   return (
     <Popconfirm
-      title="Tem certea?"
+      title="Tem certeza?"
       okType="danger"
       okText="Sim"
       cancelText="Não"

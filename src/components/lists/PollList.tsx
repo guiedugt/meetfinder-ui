@@ -20,12 +20,12 @@ const PollList: React.FC<IProps> = ({
 
   const header: (poll: IPoll) => JSX.Element = poll => (
     <Header>
-      <span className="poll-name">
+      <span className="name">
         <Tooltip title={poll.name}>
           {poll.name}
         </Tooltip>
       </span>
-      <span className="poll-deadline">
+      <span className="date">
         Encerra em {new Date(poll.deadline).toLocaleString()}
       </span>
     </Header>

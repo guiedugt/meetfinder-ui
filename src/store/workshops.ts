@@ -1,4 +1,4 @@
-import { put, select } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import { message } from 'antd';
 
 import createReduxModule from './createReduxModule';
@@ -65,6 +65,10 @@ const reducer: IReducer<IState> = {
     ...state,
     error: action.payload,
     loading: false,
+  }),
+  editWorkshop: (state, action) => ({
+    ...state,
+    loading: true,
   }),
   editWorkshopSuccess: (state, action) => ({
     ...state,
@@ -157,7 +161,7 @@ const sagas: ISagas = {
     try {
       yield http.delete(`/workshops/${id}`);
 
-      message.success('Workshop deletada com sucesso');
+      message.success('Workshop deletado com sucesso');
       yield put(reduxModule.actions.deleteWorkshopSuccess());
       yield put(reduxModule.actions.fetchMyWorkshops());
     } catch (err) {

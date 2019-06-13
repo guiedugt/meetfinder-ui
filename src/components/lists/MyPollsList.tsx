@@ -27,12 +27,12 @@ const MyPollsList: React.FC<IProps> = ({
 
     return (
       <Header>
-        <span className="poll-name">
+        <span className="name">
           <Tooltip title={poll.name}>
             {poll.name}
           </Tooltip>
         </span>
-        <span className="poll-deadline">
+        <span className="date">
           {isVoting && `Encerra em ${new Date(poll.deadline).toLocaleString()}`}
           {!isVoting && isMine && <ScheduleWorkshopModal poll={poll} />}
         </span>
