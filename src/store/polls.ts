@@ -150,7 +150,7 @@ const sagas: ISagas = {
 
       message.success('Enquete criada com sucesso');
       yield put(reduxModule.actions.createPollSuccess());
-      yield put(reduxModule.actions.fetchPolls());
+      yield put(reduxModule.actions.fetchMyPolls());
     } catch (err) {
       const errorInfo = normalizeError(err, 'Falha ao criar enquete');
       message.error(errorInfo.message);
@@ -163,7 +163,7 @@ const sagas: ISagas = {
 
       message.success('Enquete editada com sucesso');
       yield put(reduxModule.actions.editPollSuccess());
-      yield put(reduxModule.actions.fetchPolls());
+      yield put(reduxModule.actions.fetchMyPolls());
     } catch (err) {
       const errorInfo = normalizeError(err, 'Falha ao editar enquete');
       message.error(errorInfo.message);
@@ -176,7 +176,7 @@ const sagas: ISagas = {
 
       message.success('Enquete deletada com sucesso');
       yield put(reduxModule.actions.deletePollSuccess());
-      yield put(reduxModule.actions.fetchPolls());
+      yield put(reduxModule.actions.fetchMyPolls());
     } catch (err) {
       const errorInfo = normalizeError(err, 'Falha ao deletar enquete');
       message.error(errorInfo.message);
