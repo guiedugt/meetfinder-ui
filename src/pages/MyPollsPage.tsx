@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import PollFilter from '../components/filters/PollFilter';
+import MyPollsFilter from '../components/filters/MyPollsFilter';
 import CreatePollModal from '../components/modals/CreatePollModal';
 import MyPollsList from '../components/lists/MyPollsList';
 import { Spin } from 'antd';
@@ -20,7 +20,7 @@ const MyPollsPage: React.FC<IProps> = ({
         <Title>Enquetes</Title>
         <Row>
           <Col block={true}>
-            <PollFilter />
+            <MyPollsFilter />
           </Col>
           <Col style={{ paddingBottom: 24 }}>
             <CreatePollModal />
