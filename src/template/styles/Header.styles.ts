@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   background: #fff;
-  box-shadow: 0 0 2px 0 darkgrey;
   margin: 0 auto;
   padding: 1rem;
   padding-bottom: 0;

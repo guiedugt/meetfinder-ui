@@ -7,6 +7,7 @@ import { all } from 'redux-saga/effects';
 import auth from './auth';
 import users from './users';
 import polls from './polls';
+import workshops from './workshops';
 import { handleToken } from './middlewares';
 
 declare global {
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   auth: auth.reducer,
   users: users.reducer,
   polls: polls.reducer,
+  workshops: workshops.reducer,
 });
 
 const persistConfig: PersistConfig = {
@@ -36,6 +38,7 @@ export function* rootSaga() {
     auth.runSagas(),
     users.runSagas(),
     polls.runSagas(),
+    workshops.runSagas(),
   ]);
 }
 

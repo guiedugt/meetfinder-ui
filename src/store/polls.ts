@@ -131,7 +131,7 @@ const sagas: ISagas = {
       const params = {
         page: payload.page || 1,
         pageSize: payload.pageSize || 10,
-        status: 'voting',
+        status: 'voting,ended',
         filter: payload.filter,
       };
       const polls = yield http.get('/polls/mine', { params })

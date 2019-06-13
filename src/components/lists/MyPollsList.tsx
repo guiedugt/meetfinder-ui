@@ -4,32 +4,41 @@ import { connect } from 'react-redux';
 import polls from '../../store/polls';
 
 import PollItem from '../items/PollItem';
+import ScheduleWorkshopModal from '../modals/ScheduleWorkshopModal';
 import { Collapse, Tooltip } from 'antd';
 import { Header } from './styles/List.styles';
 
 interface IProps {
+  user: IUser;
   polls: IPoll[];
   fetchMyPolls: (params?: { [key: string]: any }) => any;
 }
 
 const MyPollsList: React.FC<IProps> = ({
+  user,
   polls,
   fetchMyPolls,
 }) => {
   useEffect(() => { fetchMyPolls(); }, [fetchMyPolls]);
 
-  const header: (poll: IPoll) => JSX.Element = poll => (
-    <Header>
-      <span className="poll-name">
-        <Tooltip title={poll.name}>
-          {poll.name}
-        </Tooltip>
-      </span>
-      <span className="poll-deadline">
-        Encerra em {new Date(poll.deadline).toLocaleString()}
-      </span>
-    </Header>
-  );
+  const header: (poll: IPoll) => JSX.Element = (poll) => {
+    const isMine = poll.owner.id === user.id;
+    const isVoting = new Date() < new Date(poll.deadline);
+
+    return (
+      <Header>
+        <span className="poll-name">
+          <Tooltip title={poll.name}>
+            {poll.name}
+          </Tooltip>
+        </span>
+        <span className="poll-deadline">
+          {isVoting && `Encerra em ${new Date(poll.deadline).toLocaleString()}`}
+          {!isVoting && isMine && <ScheduleWorkshopModal poll={poll} />}
+        </span>
+      </Header>
+    );
+  };
 
   const panels: JSX.Element[] = polls.map(poll =>
     <Collapse.Panel
@@ -50,7 +59,8 @@ const MyPollsList: React.FC<IProps> = ({
   );
 };
 
-const mapStateToProps = ({ polls }) => ({
+const mapStateToProps = ({ auth, polls }) => ({
+  user: auth.user,
   polls: polls.items,
 });
 
