@@ -4,6 +4,7 @@ import RegisterPage from '../pages/RegisterPage';
 import RegisterConfirmationPage from '../pages/RegisterConfirmationPage';
 import PasswordRecoveryPage from '../pages/PasswordRecoveryPage';
 import PollsPage from '../pages/PollsPage';
+import MyPollsPage from '../pages/MyPollsPage';
 
 declare global {
   interface IPath {
@@ -16,8 +17,14 @@ declare global {
 
 export const privatePaths: IPath[] = [
   {
-    name: '/',
+    name: '/polls',
     component: PollsPage,
+    template: Template,
+    default: true,
+  },
+  {
+    name: '/mypolls',
+    component: MyPollsPage,
     template: Template,
   },
 ];

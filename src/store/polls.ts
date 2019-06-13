@@ -24,19 +24,6 @@ const initialState: IState = {
 };
 
 const reducer: IReducer<IState> = {
-  createPoll: (state, action) => ({
-    ...state,
-    loading: true,
-  }),
-  createPollSuccess: (state, action) => ({
-    ...state,
-    loading: false,
-  }),
-  createPollFailure: (state, action) => ({
-    ...state,
-    error: action.payload,
-    loading: false,
-  }),
   fetchPolls: (state, action) => ({
     ...state,
     loading: true,
@@ -47,6 +34,33 @@ const reducer: IReducer<IState> = {
     loading: false,
   }),
   fetchPollsFailure: (state, action) => ({
+    ...state,
+    error: action.payload,
+    loading: false,
+  }),
+  fetchMyPolls: (state, action) => ({
+    ...state,
+    loading: true,
+  }),
+  fetchMyPollsSuccess: (state, action) => ({
+    ...state,
+    items: action.payload,
+    loading: false,
+  }),
+  fetchMyPollsFailure: (state, action) => ({
+    ...state,
+    error: action.payload,
+    loading: false,
+  }),
+  createPoll: (state, action) => ({
+    ...state,
+    loading: true,
+  }),
+  createPollSuccess: (state, action) => ({
+    ...state,
+    loading: false,
+  }),
+  createPollFailure: (state, action) => ({
     ...state,
     error: action.payload,
     loading: false,
@@ -94,19 +108,6 @@ const reducer: IReducer<IState> = {
 };
 
 const sagas: ISagas = {
-  *createPoll({ payload }) {
-    try {
-      yield http.post('/polls', payload);
-
-      message.success('Enquete criada com sucesso');
-      yield put(reduxModule.actions.createPollSuccess());
-      yield put(reduxModule.actions.fetchPolls());
-    } catch (err) {
-      const errorInfo = normalizeError(err, 'Falha ao criar enquete');
-      message.error(errorInfo.message);
-      yield put(reduxModule.actions.createPollFailure(errorInfo));
-    }
-  },
   *fetchPolls({ payload = {} }) {
     try {
       const params = {
@@ -123,6 +124,37 @@ const sagas: ISagas = {
       const errorInfo = normalizeError(err, 'Falha ao buscar enquetes');
       message.error(errorInfo.message);
       yield put(reduxModule.actions.fetchPollsFailure(errorInfo));
+    }
+  },
+  *fetchMyPolls({ payload = {} }) {
+    try {
+      const params = {
+        page: payload.page || 1,
+        pageSize: payload.pageSize || 10,
+        status: 'voting',
+        filter: payload.filter,
+      };
+      const polls = yield http.get('/polls/mine', { params })
+        .then(res => res.data);
+
+      yield put(reduxModule.actions.fetchPollsSuccess(polls));
+    } catch (err) {
+      const errorInfo = normalizeError(err, 'Falha ao buscar enquetes');
+      message.error(errorInfo.message);
+      yield put(reduxModule.actions.fetchPollsFailure(errorInfo));
+    }
+  },
+  *createPoll({ payload }) {
+    try {
+      yield http.post('/polls', payload);
+
+      message.success('Enquete criada com sucesso');
+      yield put(reduxModule.actions.createPollSuccess());
+      yield put(reduxModule.actions.fetchPolls());
+    } catch (err) {
+      const errorInfo = normalizeError(err, 'Falha ao criar enquete');
+      message.error(errorInfo.message);
+      yield put(reduxModule.actions.createPollFailure(errorInfo));
     }
   },
   *editPoll({ payload }) {

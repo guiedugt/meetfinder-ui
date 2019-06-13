@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 
 import PollForm from '../forms/PollForm';
 import { Modal } from 'antd';
-import { CreatePollButton } from './styles/CreatePollModal.styles'
+import { CreatePollButton } from './styles/CreatePollModal.styles';
 
 const CreatePollModal: React.FC = (props) => {
   const [visible, setVisible] = useState(false);

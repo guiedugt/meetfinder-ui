@@ -5,6 +5,7 @@ export const Container = styled.header`
   box-shadow: 0 0 2px 0 darkgrey;
   margin: 0 auto;
   padding: 1rem;
+  padding-bottom: 0;
   width: 100%;
 `;
 
