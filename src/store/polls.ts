@@ -137,11 +137,11 @@ const sagas: ISagas = {
       const polls = yield http.get('/polls/mine', { params })
         .then(res => res.data);
 
-      yield put(reduxModule.actions.fetchPollsSuccess(polls));
+      yield put(reduxModule.actions.fetchMyPollsSuccess(polls));
     } catch (err) {
       const errorInfo = normalizeError(err, 'Falha ao buscar enquetes');
       message.error(errorInfo.message);
-      yield put(reduxModule.actions.fetchPollsFailure(errorInfo));
+      yield put(reduxModule.actions.fetchMyPollsFailure(errorInfo));
     }
   },
   *createPoll({ payload }) {
