@@ -1,22 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-interface IHosts {
-  development: string;
-  production: string;
-  staging?: string;
-  demo?: string;
-}
-
-const apiHosts: IHosts = {
-  development: 'https://meetfinderapi.herokuapp.com',
-  production: 'https://meetfinderapi.herokuapp.com',
-  staging: 'https://meetfinderapi.herokuapp.com',
-  demo: 'https://meetfinderapi.herokuapp.com',
-};
-
-const { SERVER_ENV } = process.env;
-
-const apiHost: string  = SERVER_ENV ? apiHosts[SERVER_ENV] : apiHosts.development;
+const apiHost: string  = 'http://ec2-3-86-220-64.compute-1.amazonaws.com';
 
 const instance = axios.create({
   baseURL: apiHost,
