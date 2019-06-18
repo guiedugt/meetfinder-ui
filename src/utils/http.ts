@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-const apiHost: string  = 'http://ec2-3-86-220-64.compute-1.amazonaws.com';
+const apiHost: string  = 'http://52.90.31.172';
 
 const instance = axios.create({
   baseURL: apiHost,
