@@ -1,4 +1,28 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MeetFinder (UI)
+
+Workshop matching with subject voting system UI developed as a proof of concept.
+
+You might also want to [Checkout the API code](https://github.com/GuilhermeEd/meetfinder-api) or the [Docs](http://ec2-34-238-234-93.compute-1.amazonaws.com) as well
+
+## Screenshots
+
+### Create Poll
+![Create Poll](/src/assets/readme-create-poll.png)
+
+### List Polls
+![List Polls](/src/assets/readme-list-polls.png)
+
+### Schedule Workshop
+![Schedule Workshop](/src/assets/readme-schedule-workshop.png)
+
+### List Workshops
+![List Workshops](/src/assets/readme-list-workshops.png)
+
+### Docs
+![Docs](/src/assets/readme-docs.png)
+
+
+# This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -42,3 +66,27 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
